@@ -1,0 +1,6 @@
+{
+  "name": "Period & Cycle Tracker",
+  "description": "QR code packaging web app for period cycle tracking, symptom logging, phase analysis, and tailored nutrient & vitamin recommendations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -26,6 +26,15 @@ export function loadUserProfile(): UserProfile {
     const raw = localStorage.getItem(PROFILE_KEY);
     if (raw) {
       const parsed = JSON.parse(raw);
+      // Check if there is an email-specific saved profile that has more up-to-date information
+      if (parsed.email && parsed.email.includes('@')) {
+        const perUserKey = `flawsome_profile_${parsed.email.trim().toLowerCase()}`;
+        const userRaw = localStorage.getItem(perUserKey);
+        if (userRaw) {
+          const userParsed = JSON.parse(userRaw);
+          return { ...DEFAULT_PROFILE, ...parsed, ...userParsed };
+        }
+      }
       return { ...DEFAULT_PROFILE, ...parsed };
     }
   } catch (e) {
@@ -37,6 +46,10 @@ export function loadUserProfile(): UserProfile {
 export function saveUserProfile(profile: UserProfile): void {
   try {
     localStorage.setItem(PROFILE_KEY, JSON.stringify(profile));
+    if (profile.email && profile.email.includes('@')) {
+      const perUserKey = `flawsome_profile_${profile.email.trim().toLowerCase()}`;
+      localStorage.setItem(perUserKey, JSON.stringify(profile));
+    }
   } catch (e) {
     console.error('Failed to save user profile', e);
   }

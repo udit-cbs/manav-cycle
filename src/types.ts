@@ -1,17 +1,36 @@
 export type CyclePhase = 'menstrual' | 'follicular' | 'ovulation' | 'luteal';
 
+export interface CycleScanEntry {
+  id: string;
+  date: string; // YYYY-MM-DD of scan
+  timestamp: string; // ISO string
+  age?: number;
+  periodDates: string[]; // [startDate1, startDate2, startDate3]
+  cycleLength: number;
+  periodDuration: number;
+  flowIntensity?: FlowLevel;
+  crampIntensity?: CrampSeverity;
+  symptoms?: string[];
+  selectedProduct?: string;
+}
+
 export interface UserProfile {
   name?: string;
   email?: string;
   phone?: string;
   isLoggedIn?: boolean;
   lastGmailAlertSentDate?: string;
+  lastCompletedOnboardingDate?: string; // YYYY-MM-DD of last completed cycle scan
   age: number;
   cycleLength: number; // e.g. 28 days
   periodDuration: number; // e.g. 5 days
   last3Periods: string[]; // YYYY-MM-DD dates of period start dates (ordered latest first)
   completedOnboarding: boolean;
   selectedProduct: string; // e.g. "Organic Ultra-Thin Pads (Pack of 20)"
+  flowIntensity?: FlowLevel;
+  crampIntensity?: CrampSeverity;
+  symptoms?: string[];
+  scanHistory?: CycleScanEntry[];
 }
 
 export type FlowLevel = 'none' | 'spotting' | 'light' | 'medium' | 'heavy';

@@ -81,7 +81,7 @@ export const PHASE_KNOWLEDGE: Record<CyclePhase, PhaseRemedies> = {
     displayName: 'Menstrual Phase',
     dayRangeText: 'Days 1 - 5',
     tagline: 'Rest & Replenish',
-    description: 'Estrogen and progesterone drop to their lowest levels. Your body is shedding the uterine lining and requires warm, blood-building nutrients and gentle care.',
+    description: 'Estrogen and progesterone drop to their lowest levels as your body sheds the uterine lining. Metabolism slows down slightly and your body benefits from deep restorative rest, warming blood-building nutrients, and gentle self-care to replenish vital iron stores and natural vitality.',
     foodsToIncrease: [
       { name: 'Warm Iron-Rich Foods', icon: '🍲', reason: 'Cooked spinach, red lentils, and bone broth restore iron levels lost during flow.' },
       { name: 'Vitamin C Boosters', icon: '🍊', reason: 'Citrus, berries, and bell peppers double dietary iron absorption.' },
@@ -98,7 +98,7 @@ export const PHASE_KNOWLEDGE: Record<CyclePhase, PhaseRemedies> = {
     displayName: 'Follicular Phase',
     dayRangeText: 'Days 6 - 11',
     tagline: 'Energy Rebuilding & Growth',
-    description: 'FSH stimulates follicle maturation while estrogen steadily rises. Your physical stamina, mental focus, and social mood increase as energy rebounds.',
+    description: 'FSH stimulates ovarian follicle maturation while estrogen steadily climbs to renew the uterine lining. Your physical stamina, cognitive focus, and creative drive rebound—making this an optimal window for high productivity, social connections, and initiating new routines.',
     foodsToIncrease: [
       { name: 'Fermented Foods', icon: '🥬', reason: 'Kimchi, sauerkraut, and kefir assist gut microbiota in metabolizing rising estrogen.' },
       { name: 'Fresh Green Veggies', icon: '🥦', reason: 'Broccoli, asparagus, and zucchini support liver detoxification pathways.' },
@@ -115,7 +115,7 @@ export const PHASE_KNOWLEDGE: Record<CyclePhase, PhaseRemedies> = {
     displayName: 'Ovulation Window',
     dayRangeText: 'Days 12 - 16',
     tagline: 'Peak Energy & Fertility',
-    description: 'Estrogen peaks and LH surges to trigger egg release. Your body temperature rises slightly, and confidence, skin glow, and communication peak.',
+    description: 'Estrogen reaches its monthly peak and luteinizing hormone (LH) surges to trigger egg release. Your basal body temperature rises slightly, while social confidence, cellular repair rate, and communication skills are naturally heightened.',
     foodsToIncrease: [
       { name: 'Antioxidant Berries', icon: '🫐', reason: 'Blueberries, raspberries, and blackberries protect egg cellular integrity.' },
       { name: 'Fiber-Rich Raw Salads', icon: '🥗', reason: 'Cruciferous vegetables absorb excess estrogen for smooth elimination.' },
@@ -132,7 +132,7 @@ export const PHASE_KNOWLEDGE: Record<CyclePhase, PhaseRemedies> = {
     displayName: 'Luteal Phase',
     dayRangeText: 'Days 17 - 28',
     tagline: 'Nesting & PMS Balance',
-    description: 'Progesterone peaks then drops before menstruation. Metabolism increases slightly (100–300 extra kcal/day needed). Focus on stabilizing mood, water retention, and cravings.',
+    description: 'Progesterone peaks to nourish the lining before gradually tapering. Resting metabolic rate increases by 100–300 kcal/day, requiring complex carbohydrates, blood-sugar stability, and gentle evening wind-down rituals to prevent PMS mood swings, bloating, and fatigue.',
     foodsToIncrease: [
       { name: 'Complex Carbohydrates', icon: '🍠', reason: 'Roasted sweet potatoes, oats, and quinoa sustain serotonin without sugar spikes.' },
       { name: 'Tryptophan Sources', icon: '🍌', reason: 'Bananas, turkey, and sunflower seeds promote natural melatonin & calm mood.' },
@@ -147,14 +147,16 @@ export const PHASE_KNOWLEDGE: Record<CyclePhase, PhaseRemedies> = {
 };
 
 export const SYMPTOM_OPTIONS = [
-  { id: 'cramps', label: 'Cramps', icon: '⚡' },
-  { id: 'flow', label: 'Flow', icon: '🩸' },
-  { id: 'mood', label: 'Mood', icon: '😊' },
-  { id: 'bloating', label: 'Bloating', icon: '🎈' },
-  { id: 'energy', label: 'Energy Level', icon: '⚡' },
-  { id: 'acne', label: 'Acne / Skin', icon: '✨' },
-  { id: 'cravings', label: 'Cravings', icon: '🍫' },
-  { id: 'headache', label: 'Headache', icon: '🤕' },
-  { id: 'backache', label: 'Backache', icon: '🩹' },
-  { id: 'sleep', label: 'Sleep Quality', icon: '🌙' },
+  { id: 'cramps', label: 'Pelvic & Abdominal Cramps', icon: '⚡' },
+  { id: 'flow', label: 'Heavy / Irregular Flow', icon: '🩸' },
+  { id: 'mood', label: 'Mood Swings & Irritability', icon: '🥺' },
+  { id: 'bloating', label: 'Bloating & Fluid Retention', icon: '🎈' },
+  { id: 'energy', label: 'Fatigue & Low Stamina', icon: '🔋' },
+  { id: 'acne', label: 'Hormonal Breakouts / Acne', icon: '✨' },
+  { id: 'cravings', label: 'Sugar & Food Cravings', icon: '🍫' },
+  { id: 'headache', label: 'Headaches & Migraines', icon: '🤕' },
+  { id: 'backache', label: 'Lower Back & Hip Pain', icon: '🩹' },
+  { id: 'sleep', label: 'Insomnia & Restless Sleep', icon: '🌙' },
+  { id: 'breast_tenderness', label: 'Breast Tenderness', icon: '🌸' },
+  { id: 'nausea', label: 'Nausea & Stomach Sensitivity', icon: '🍵' },
 ];

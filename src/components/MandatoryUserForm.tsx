@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { User, Mail, Phone, ArrowRight, ShieldCheck, Lock, Sparkles } from 'lucide-react';
 import { UserProfile } from '../types';
-import { getCyclePrediction } from '../utils/cycleCalculations';
+import { persistUserProfile } from '../lib/userStorage';
 
 interface MandatoryUserFormProps {
   profile: UserProfile;
@@ -18,6 +18,12 @@ export const MandatoryUserForm: React.FC<MandatoryUserFormProps> = ({
   const [email, setEmail] = useState(profile.email || '');
   const [phone, setPhone] = useState(profile.phone || '');
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    if (profile.name && !name) setName(profile.name);
+    if (profile.email && !email) setEmail(profile.email);
+    if (profile.phone && !phone) setPhone(profile.phone);
+  }, [profile]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,33 +42,16 @@ export const MandatoryUserForm: React.FC<MandatoryUserFormProps> = ({
       return;
     }
 
-    onSaveProfile({
+    const updatedProfile: UserProfile = {
       ...profile,
       name: name.trim(),
       email: email.trim(),
       phone: phone.trim(),
       isLoggedIn: true,
-    });
+    };
 
-    const prediction = getCyclePrediction({
-      ...profile,
-      name: name.trim(),
-      email: email.trim(),
-      phone: phone.trim(),
-      isLoggedIn: true,
-    });
-
-    fetch('https://script.google.com/macros/s/AKfycbxWiPZ4kMpx_eHZ6o1Nv2ISsdhJojMIe2vUbg0TdRCo3a9vvKeXGp9nCsVEaWIS4cnz1g/exec', {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name: name.trim(),
-        email: email.trim(),
-        phone: phone.trim(),
-        nextPeriod: prediction.nextPeriodStartDate.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }),
-      }),
-    });
+    onSaveProfile(updatedProfile);
+    persistUserProfile(updatedProfile);
 
     onComplete();
   };

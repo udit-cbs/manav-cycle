@@ -11,7 +11,7 @@ interface WelcomeFrontPageProps {
   profile: UserProfile;
   onSaveProfile: (updated: UserProfile) => void;
   onStart: () => void;
-  onOpenLogin: () => void;
+  onOpenLogin: (initialError?: string) => void;
 }
 
 export const WelcomeFrontPage: React.FC<WelcomeFrontPageProps> = ({
@@ -39,7 +39,11 @@ export const WelcomeFrontPage: React.FC<WelcomeFrontPageProps> = ({
       const synced = await syncUserProfileFromCloudOrLocal(user.email, profile);
       onSaveProfile(synced);
     } catch (err: any) {
-      console.warn('Direct sign in cancelled or failed:', err);
+      console.warn('Direct sign in note:', err);
+      const msg = err.message || String(err);
+      if (!msg.includes('cancelled') && !msg.includes('closed')) {
+        onOpenLogin(msg);
+      }
     } finally {
       setIsAuthenticating(false);
     }

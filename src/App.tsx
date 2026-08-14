@@ -25,7 +25,7 @@ import { LiveMovingOcean } from './components/LiveMovingOcean';
 import { MotivationalQuotesCard } from './components/MotivationalQuotesCard';
 import { ConnectedProfileHistoryCard } from './components/ConnectedProfileHistoryCard';
 import { Sparkles, Calendar as CalendarIcon, Info } from 'lucide-react';
-import { subscribeToAuth } from './lib/firebaseAuth';
+import { subscribeToAuth, checkRedirectAuth } from './lib/firebaseAuth';
 import { syncUserProfileFromCloudOrLocal } from './lib/userStorage';
 
 export default function App() {
@@ -38,12 +38,22 @@ export default function App() {
   const [showSettings, setShowSettings] = useState<boolean>(false);
   const [showGeminiModal, setShowGeminiModal] = useState<boolean>(false);
   const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
+  const [loginModalError, setLoginModalError] = useState<string | null>(null);
 
   useEffect(() => {
     saveUserProfile(profile);
   }, [profile]);
 
   useEffect(() => {
+    // Check if returning from a redirect login
+    checkRedirectAuth().then(async (redirectUser) => {
+      if (redirectUser && redirectUser.email) {
+        const synced = await syncUserProfileFromCloudOrLocal(redirectUser.email, profile);
+        setProfile(synced);
+        saveUserProfile(synced);
+      }
+    });
+
     const unsubscribe = subscribeToAuth(async (user) => {
       if (user && user.email) {
         const synced = await syncUserProfileFromCloudOrLocal(user.email, profile);
@@ -106,13 +116,20 @@ export default function App() {
           profile={profile}
           onSaveProfile={handleSaveProfile}
           onStart={handleStartFromWelcome}
-          onOpenLogin={() => setShowLoginModal(true)}
+          onOpenLogin={(err) => {
+            setLoginModalError(err || null);
+            setShowLoginModal(true);
+          }}
         />
         {showLoginModal && (
           <GmailLoginModal
             profile={profile}
             onSaveProfile={handleSaveProfile}
-            onClose={() => setShowLoginModal(false)}
+            onClose={() => {
+              setShowLoginModal(false);
+              setLoginModalError(null);
+            }}
+            initialError={loginModalError}
           />
         )}
       </div>
@@ -302,7 +319,11 @@ export default function App() {
         <GmailLoginModal
           profile={profile}
           onSaveProfile={handleSaveProfile}
-          onClose={() => setShowLoginModal(false)}
+          onClose={() => {
+            setShowLoginModal(false);
+            setLoginModalError(null);
+          }}
+          initialError={loginModalError}
         />
       )}
     </div>
